@@ -1,0 +1,128 @@
+//prg 1//
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class StringOperations {
+    public static void main(String[] args) {
+        // Create an ArrayList to store strings
+        ArrayList<String> stringList = new ArrayList<>();
+
+        // Add some sample strings to the list
+        stringList.add("apple");
+        stringList.add("banana");
+        stringList.add("cherry");
+        stringList.add("orange");
+        stringList.add("grape");
+
+        // Display the menu and perform operations based on user input
+        while (true) {
+            System.out.println("\nString Operations Menu:");
+            System.out.println("1. Search a string");
+            System.out.println("2. Display strings starting and ending with a letter");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice (1-3): ");
+
+            Scanner scanner = new Scanner(System.in);
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter the string to search: ");
+                    String searchString = scanner.next();
+                    searchAndDisplayResult(stringList, searchString);
+                    break;
+
+                case 2:
+                    System.out.print("Enter the starting letter: ");
+                    char startLetter = scanner.next().charAt(0);
+                    System.out.print("Enter the ending letter: ");
+                    char endLetter = scanner.next().charAt(0);
+                    displayStringsStartingAndEndingWithLetter(stringList, startLetter, endLetter);
+                    break;
+
+                case 3:
+                    System.out.println("Exiting the program. Goodbye!");
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 1 and 3.");
+            }
+        }
+    }
+
+    private static void searchAndDisplayResult(ArrayList<String> stringList, String searchString) {
+        if (stringList.contains(searchString)) {
+            System.out.println("String found in the list.");
+        } else {
+            System.out.println("String not found in the list.");
+        }
+    }
+
+    private static void displayStringsStartingAndEndingWithLetter(ArrayList<String> stringList, char startLetter, char endLetter) {
+        System.out.println("Strings starting with '" + startLetter + "' and ending with '" + endLetter + "':");
+        for (String str : stringList) {
+            if (str.toLowerCase().startsWith(String.valueOf(startLetter).toLowerCase()) &&
+                    str.toLowerCase().endsWith(String.valueOf(endLetter).toLowerCase())) {
+                System.out.println(str);
+            }
+        }
+    }
+}
+//prg 2//
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+class Fruit {
+    private String name;
+    private double price;
+    private int quantity;
+
+    public Fruit(String name, double price, int quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Fruit{name='" + name + "', price=" + price + ", quantity=" + quantity + '}';
+    }
+}
+
+public class FruitSortingExample {
+    public static void main(String[] args) {
+        // Create an ArrayList to store fruit objects
+        ArrayList<Fruit> fruitList = new ArrayList<>();
+
+        // Add 20 fruits to the list
+        fruitList.add(new Fruit("Apple", 1.2, 5));
+        fruitList.add(new Fruit("Banana", 0.8, 8));
+        // Add more fruits as needed...
+
+        // Use Comparator to sort fruits based on price
+        Comparator<Fruit> priceComparator = Comparator.comparing(Fruit::getPrice);
+
+        // Sort the list using the priceComparator
+        Collections.sort(fruitList, priceComparator);
+
+        // Display the sorted list
+        System.out.println("Sorted Fruits based on Price:");
+        for (Fruit fruit : fruitList) {
+            System.out.println(fruit);
+        }
+    }
+}
